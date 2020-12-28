@@ -5,11 +5,6 @@ import PropTypes from 'prop-types';
 
 
 const generateSquareComponents = (squares, onClickCallback) => {
-  // Complete this for Wave 1
-  // squares is a 2D Array, but 
-  //  you need to return a 1D array
-  //  of square components
-  // [[{}*3][][]]
   const squareList = [];
   
   for (let row of squares) {
