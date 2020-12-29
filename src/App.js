@@ -47,17 +47,20 @@ const App = () => {
             id: currentId,
             value: player,
           });
+
+          if (player === PLAYER_1) {
+            setPlayer(PLAYER_2)
+          } else {
+            setPlayer(PLAYER_1)
+          }
+          
         } else {
           squareCopy[row].push(squares[row][col]);
         }
         currentId += 1;
       }
     }
-    if (player === PLAYER_1) {
-      setPlayer(PLAYER_2)
-    } else {
-      setPlayer(PLAYER_1)
-    }
+    
     setSquares(squareCopy)
   }
 
