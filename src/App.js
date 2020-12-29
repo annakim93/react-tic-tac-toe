@@ -39,7 +39,7 @@ const App = () => {
     for (let row = 0; row < 3; row += 1) {
       squareCopy.push([]);
       for (let col = 0; col < 3; col += 1) {
-        if (currentId === id && squares[row][col].value === '') {
+        if (winner === false && currentId === id && squares[row][col].value === '') {
           squareCopy[row].push({
             id: currentId,
             value: player,
