@@ -364,6 +364,28 @@ describe('App', () => {
     });       
   });
 
+  describe('Prints "It is a tie!" when there is a tie', () => {
+    test('whole board is filled with no winner', () => {
+      // Arrange
+      const { container } = render(<App />);
+
+      // Act
+      clickButtonAndVerifyResult(container, 0, 'X');
+      clickButtonAndVerifyResult(container, 1, 'O');
+      clickButtonAndVerifyResult(container, 2, 'X');
+      clickButtonAndVerifyResult(container, 5, 'O');
+      clickButtonAndVerifyResult(container, 3, 'X');
+      clickButtonAndVerifyResult(container, 4, 'O');
+      clickButtonAndVerifyResult(container, 7, 'X');
+      clickButtonAndVerifyResult(container, 6, 'O');
+      clickButtonAndVerifyResult(container, 8, 'X');
+
+      // Assert
+      const winnerScreen = screen.queryByText('It is a tie!')
+      expect(winnerScreen).not.toBeNull();
+      expect(winnerScreen).toBeInTheDocument();
+    });
+  });
   describe('Wave 4: reset game button', () => {
     test('App has a "Reset Game" button', () => {
       // Arrange-Act
