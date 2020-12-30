@@ -35,6 +35,7 @@ const App = () => {
 
   const updateSquares = (id) => {
     const squareCopy = [];
+    let numSquaresFilled = 0;
     let currentId = 0;
     for (let row = 0; row < 3; row += 1) {
       squareCopy.push([]);
@@ -54,13 +55,20 @@ const App = () => {
         } else {
           squareCopy[row].push(squares[row][col]);
         }
+
+        if (squareCopy[row][col].value !== '') {
+          numSquaresFilled++;
+        }
+        
         currentId += 1;
       }
     }
     
     setSquares(squareCopy);
     let newWinner = checkForWinner(squareCopy);
-    if (newWinner !== false) {
+    if (numSquaresFilled === 9) {
+      setWinner('tie');
+    } else if (newWinner !== false) {
       setWinner(newWinner);
     }
   }
@@ -120,7 +128,7 @@ const App = () => {
     <div className="App">
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
-        <h2>{winner === false ? '' : `Winner is ${winner}`}</h2>
+        <h2>{winner === false ? '' : winner === 'tie' ? 'It is a tie!' : `Winner is ${winner}`}</h2>
         <button onClick={resetGame}>Reset Game</button>
       </header>
       <main>
