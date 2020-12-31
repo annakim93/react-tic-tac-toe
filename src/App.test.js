@@ -386,6 +386,47 @@ describe('App', () => {
       expect(winnerScreen).toBeInTheDocument();
     });
   });
+
+  describe('Cannot click another square if there is a winner', () => {
+    test('Version 1: Cannot fill in another square with marker if we have winner', () => {
+      const { container } = render(<App />);
+
+      // Act
+      clickButtonAndVerifyResult(container, 3, 'X');
+      clickButtonAndVerifyResult(container, 4, 'O');
+      clickButtonAndVerifyResult(container, 6, 'X');
+      clickButtonAndVerifyResult(container, 1, 'O');
+      clickButtonAndVerifyResult(container, 5, 'X');
+      clickButtonAndVerifyResult(container, 7, 'O');
+
+      // Assert
+      const winnerScreen = screen.queryByText('Winner is O')
+      expect(winnerScreen).not.toBeNull();
+      expect(winnerScreen).toBeInTheDocument();
+      clickButtonAndVerifyResult(container, 8, '');
+    });
+
+    test('Version 2: Cannot fill in another square with marker if we have winner', () => {
+      // Arrange
+      const { container } = render(<App />);
+
+      // Act
+      let buttons = container.querySelectorAll('.grid button');
+      fireEvent.click(buttons[3]);
+      fireEvent.click(buttons[4]);
+      fireEvent.click(buttons[6]);
+      fireEvent.click(buttons[1]);
+      fireEvent.click(buttons[5]);
+      fireEvent.click(buttons[7]);
+      fireEvent.click(buttons[8]);
+
+      const xButtons = screen.queryAllByText('X');
+      expect(xButtons.length).toEqual(3);
+      const oButtons = screen.queryAllByText('O');
+      expect(oButtons.length).toEqual(3);
+    });
+  });
+
   describe('Wave 4: reset game button', () => {
     test('App has a "Reset Game" button', () => {
       // Arrange-Act
